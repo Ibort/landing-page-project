@@ -68,12 +68,16 @@ function scrollPosActive(){
     const sectionYPos = section.getBoundingClientRect().top;
     const sectionHeight = section.getBoundingClientRect().height;
     const myClass = section.parentElement.classList;
-    if (sectionYPos < 100 &&
-        sectionYPos >= -sectionHeight){
-      myClass.toggle('your-active-class');
+    const pos = sectionHeight;
+    if(sectionYPos < pos && sectionYPos >= -pos/2){
+      if(myClass.contains('your-active-class') === false){
+        myClass.toggle('your-active-class');
+      }
     }
     else{
-      myClass.toggle('your-active-class');
+      if(myClass.contains('your-active-class')){
+        myClass.toggle('your-active-class');
+      }
     }
   }
 }
