@@ -26,18 +26,7 @@ window.addEventListener('scroll', scrollPosActive);
  * Start Helper Functions
  *
 */
-// function addActiveClass(){
-//   for (section of content){
-//     const myClass = section.parentElement.classList;
-//     if(myClass.contains('your-active-class')){
-//       myClass.toggle('your-active-class');
-//     }
-//     else{
-//       myClass.add('your-active-class');
-//       myClass.toggle('your-active-class');
-//     }
-//   }
-// }
+
 
 /**
  * End Helper Functions
@@ -51,7 +40,7 @@ function buildNav(){
 
   navBar.innerHTML = "";
 
-  for (let section of content){
+  for (const section of content){
     const newNavItem = document.createElement('li')
     const navText = section.parentElement.dataset.nav;
     const navId = section.parentElement.id;
@@ -64,19 +53,22 @@ function buildNav(){
 
 // Add class 'active' to section when near top of viewport
 function scrollPosActive(){
-  for (section of content){
-    const sectionYPos = section.getBoundingClientRect().top;
-    const sectionHeight = section.getBoundingClientRect().height;
-    const myClass = section.parentElement.classList;
-    const pos = sectionHeight;
-    if(sectionYPos < pos && sectionYPos >= -pos/2){
+  const sectionBtn = document.getElementsByClassName('menu__link');
+  for (let i = 0; i < content.length; i++){
+    const sectionYPos = content[i].parentElement.getBoundingClientRect().top;
+    const sectionHeight = content[i].parentElement.getBoundingClientRect().height;
+    const myClass = content[i].parentElement.classList;
+    const pos = sectionHeight/2;
+    if(sectionYPos < pos && sectionYPos >= -pos){
       if(myClass.contains('your-active-class') === false){
         myClass.toggle('your-active-class');
+        sectionBtn[i].classList.toggle('menu__link__active');
       }
     }
     else{
       if(myClass.contains('your-active-class')){
         myClass.toggle('your-active-class');
+        sectionBtn[i].classList.toggle('menu__link__active');
       }
     }
   }
@@ -91,7 +83,7 @@ function scrollPosActive(){
  *
 */
 //Add your-active-class to the section in <main> tag
-// addActiveClass();
+
 // Build menu
 buildNav();
 // Scroll to section on link click
