@@ -26,18 +26,18 @@ window.addEventListener('scroll', scrollPosActive);
  * Start Helper Functions
  *
 */
-function addActiveClass(){
-  for (section of content){
-    const myClass = section.parentElement.classList;
-    if(myClass.contains('your-active-class')){
-      myClass.toggle('your-active-class');
-    }
-    else{
-      myClass.add('your-active-class');
-      myClass.toggle('your-active-class');
-    }
-  }
-}
+// function addActiveClass(){
+//   for (section of content){
+//     const myClass = section.parentElement.classList;
+//     if(myClass.contains('your-active-class')){
+//       myClass.toggle('your-active-class');
+//     }
+//     else{
+//       myClass.add('your-active-class');
+//       myClass.toggle('your-active-class');
+//     }
+//   }
+// }
 
 /**
  * End Helper Functions
@@ -57,7 +57,6 @@ function buildNav(){
     const navId = section.parentElement.id;
 
     newNavItem.innerHTML = `<a class='menu__link' href='#${navId}'>${navText}</a>`;
-
     navItems.appendChild(newNavItem);
   }
   navBar.appendChild(navItems);
@@ -92,7 +91,7 @@ function scrollPosActive(){
  *
 */
 //Add your-active-class to the section in <main> tag
-addActiveClass();
+// addActiveClass();
 // Build menu
 buildNav();
 // Scroll to section on link click
