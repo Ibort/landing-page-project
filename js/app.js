@@ -28,7 +28,7 @@ window.addEventListener('scroll', scrollPosActive);
 */
 function addActiveClass(){
   for (section of content){
-    const myClass = section.parentElement.classList
+    const myClass = section.parentElement.classList;
     if(myClass.contains('your-active-class')){
       myClass.toggle('your-active-class');
     }
@@ -38,6 +38,7 @@ function addActiveClass(){
     }
   }
 }
+
 /**
  * End Helper Functions
  * Begin Main Functions
