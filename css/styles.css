@@ -10,10 +10,6 @@
 
 
 /* ---- Base Rules ---- */
-html {
-  scroll-behavior: smooth;
-}
-
 body {
     background: rgb(136,203,171);
     background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
@@ -100,6 +96,37 @@ section {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
+}
+
+.scroll__top{
+  position: fixed;
+  bottom: -100px;
+  right: 10vw;
+  background-color: black;
+  border: 1px solid white;
+  border-bottom: black;
+  padding: 10px;
+  transition-duration: 1s;
+}
+
+.scroll__top-active {
+  bottom: -50px;
+}
+
+.scroll__top:hover{
+  bottom: 0px;
+}
+
+.scroll__top button{
+  outline: none;
+  position: relative;
+  top: 8px;
+  background: 0;
+  border: solid white;
+  border-width: 0 8px 8px 0;
+  padding: 15px;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
 }
 
 /* Header Styles */

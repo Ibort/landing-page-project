@@ -26,7 +26,15 @@ window.addEventListener('scroll', scrollPosActive);
  * Start Helper Functions
  *
 */
-
+function scrollTopBtn(vis){
+  const topBtn = document.getElementById('topBtn');
+  if (vis === 1){
+    topBtn.classList.add('scroll__top-active')
+  }
+  if (vis === 0){
+    topBtn.classList.remove('scroll__top-active')
+  }
+}
 
 /**
  * End Helper Functions
@@ -50,6 +58,7 @@ function buildNav(){
   }
   navBar.addEventListener('click', scrollToPos);
   navBar.appendChild(navItems);
+  document.getElementById('topBtn').addEventListener('click', scrollToPos);
 }
 
 // Add class 'active' to section when near top of viewport
@@ -73,13 +82,19 @@ function scrollPosActive(){
       }
     }
   }
+  if(content[0].parentElement.getBoundingClientRect().top < 0){
+    scrollTopBtn(1);
+  }
+  else {
+    scrollTopBtn(0);
+  }
 }
 
 // Scroll to anchor ID using scrollTO event
 function scrollToPos(){
   const clickedBtn = event.target.dataset.nav;
   const scrollTarget = document.getElementById(clickedBtn);
-  scrollTarget.scrollIntoView();
+  scrollTarget.scrollIntoView({behavior: "smooth"});
 }
 
 /**
