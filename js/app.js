@@ -18,7 +18,6 @@
  *
 */
 const content = document.getElementsByClassName('landing__container');
-const navBar = document.getElementById('navbar__list');
 window.addEventListener('scroll', scrollPosActive);
 
 /**
@@ -44,6 +43,7 @@ function scrollTopBtn(vis){
 
 // build the nav
 function buildNav(){
+  const navBar = document.getElementById('navbar__list');
   const navItems = document.createDocumentFragment();
 
   navBar.innerHTML = "";
@@ -71,14 +71,14 @@ function scrollPosActive(){
     const pos = sectionHeight/2;
     if(sectionYPos < pos && sectionYPos >= -pos){
       if(myClass.contains('your-active-class') === false){
-        myClass.toggle('your-active-class');
-        sectionBtn[i].classList.toggle('menu__link__active');
+        myClass.add('your-active-class');
+        sectionBtn[i].classList.add('menu__link__active');
       }
     }
     else{
       if(myClass.contains('your-active-class')){
-        myClass.toggle('your-active-class');
-        sectionBtn[i].classList.toggle('menu__link__active');
+        myClass.remove('your-active-class');
+        sectionBtn[i].classList.remove('menu__link__active');
       }
     }
   }
