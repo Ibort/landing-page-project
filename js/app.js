@@ -45,9 +45,10 @@ function buildNav(){
     const navText = section.parentElement.dataset.nav;
     const navId = section.parentElement.id;
 
-    newNavItem.innerHTML = `<a class='menu__link' href='#${navId}'>${navText}</a>`;
+    newNavItem.innerHTML = `<button class='menu__link' data-nav='${navId}'>${navText}</button>`;
     navItems.appendChild(newNavItem);
   }
+  navBar.addEventListener('click', scrollToPos);
   navBar.appendChild(navItems);
 }
 
@@ -75,7 +76,11 @@ function scrollPosActive(){
 }
 
 // Scroll to anchor ID using scrollTO event
-
+function scrollToPos(){
+  const clickedBtn = event.target.dataset.nav;
+  const scrollTarget = document.getElementById(clickedBtn);
+  scrollTarget.scrollIntoView();
+}
 
 /**
  * End Main Functions
@@ -87,5 +92,6 @@ function scrollPosActive(){
 // Build menu
 buildNav();
 // Scroll to section on link click
-
+//scrollToPos()
 // Set sections as active
+//scrollPosActive()
