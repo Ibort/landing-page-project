@@ -18,20 +18,60 @@
  *
 */
 const content = document.getElementsByClassName('landing__container');
-window.addEventListener('scroll', scrollPosActive);
-
+const nav = document.getElementsByClassName('page__header')[0];
+let scrollTimer = -1;
 /**
  * End Global Variables
  * Start Helper Functions
  *
 */
-function scrollTopBtn(vis){
-  const topBtn = document.getElementById('topBtn');
-  if (vis === 1){
-    topBtn.classList.add('scroll__top-active')
+window.addEventListener('scroll', scrollPosActive);
+const hideNav = () => setTimeout(() => nav.style.top = nav.style.top = `${-nav.offsetHeight}px`,2000);
+
+function checkAndActivateSect(){
+  const sectionBtn = document.getElementsByClassName('menu__link');
+  for (let i = 0; i < content.length; i++){
+    const sectionYPos = content[i].parentElement.getBoundingClientRect().top;
+    const sectionHeight = content[i].parentElement.getBoundingClientRect().height;
+    const myClass = content[i].parentElement.classList;
+    const pos = sectionHeight/2;
+    if(sectionYPos < pos && sectionYPos >= -pos){
+      if(myClass.contains('your-active-class') === false){
+        myClass.add('your-active-class');
+        sectionBtn[i].classList.add('menu__link__active');
+      }
+    }
+    else{
+      if(myClass.contains('your-active-class')){
+        myClass.remove('your-active-class');
+        sectionBtn[i].classList.remove('menu__link__active');
+      }
+    }
   }
-  if (vis === 0){
-    topBtn.classList.remove('scroll__top-active')
+}
+
+function showTopBtn(){
+  const topBtn = document.getElementById('topBtn');
+  if(content[0].parentElement.getBoundingClientRect().top < 0){
+    topBtn.classList.add('scroll__top-active');
+  }
+  else {
+    topBtn.classList.remove('scroll__top-active');
+  }
+}
+
+function hideNavScroll(){
+  if(nav.style.top !== "0px"){
+    nav.style.top = "0px";
+  }
+  if(window.pageYOffset > 100) {
+    if(scrollTimer !== -1) {
+      window.clearTimeout(scrollTimer);
+    }
+    scrollTimer = hideNav();
+  }
+  else{
+    window.clearTimeout(scrollTimer);
   }
 }
 
@@ -63,31 +103,9 @@ function buildNav(){
 
 // Add class 'active' to section when near top of viewport
 function scrollPosActive(){
-  const sectionBtn = document.getElementsByClassName('menu__link');
-  for (let i = 0; i < content.length; i++){
-    const sectionYPos = content[i].parentElement.getBoundingClientRect().top;
-    const sectionHeight = content[i].parentElement.getBoundingClientRect().height;
-    const myClass = content[i].parentElement.classList;
-    const pos = sectionHeight/2;
-    if(sectionYPos < pos && sectionYPos >= -pos){
-      if(myClass.contains('your-active-class') === false){
-        myClass.add('your-active-class');
-        sectionBtn[i].classList.add('menu__link__active');
-      }
-    }
-    else{
-      if(myClass.contains('your-active-class')){
-        myClass.remove('your-active-class');
-        sectionBtn[i].classList.remove('menu__link__active');
-      }
-    }
-  }
-  if(content[0].parentElement.getBoundingClientRect().top < 0){
-    scrollTopBtn(1);
-  }
-  else {
-    scrollTopBtn(0);
-  }
+  checkAndActivateSect();
+  showTopBtn();
+  hideNavScroll();
 }
 
 // Scroll to anchor ID using scrollTO event

@@ -136,6 +136,7 @@ section {
     top: 0;
     width: 100%;
     z-index: 5;
+    transition-duration: 1s;
 }
 
 /* Footer Styles */
