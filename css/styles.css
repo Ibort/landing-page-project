@@ -57,7 +57,6 @@ main {
 
 section {
     position: relative;
-    min-height: 80vh;
 }
 
 
@@ -124,7 +123,7 @@ section {
   background: 0;
   border: solid white;
   border-width: 0 8px 8px 0;
-  padding: 15px;
+  padding: 12px;
   transform: rotate(-135deg);
   -webkit-transform: rotate(-135deg);
 }
@@ -154,8 +153,11 @@ section {
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
 .landing__container {
+    overflow: hidden;
     padding: 1em;
     text-align: left;
+    transition-duration: 2s;
+    min-height: 80vh;
 }
 
 @media only screen and (min-width: 35em){

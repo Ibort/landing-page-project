@@ -19,6 +19,9 @@
 */
 const content = document.getElementsByClassName('landing__container');
 const nav = document.getElementsByClassName('page__header')[0];
+const sectionBtn = document.getElementsByClassName('menu__link');
+const hideNav = () => setTimeout(() => nav.style.top = nav.style.top = `${-nav.offsetHeight}px`,2000);
+let sectIsCollapsed = false;
 let scrollTimer = -1;
 /**
  * End Global Variables
@@ -26,10 +29,9 @@ let scrollTimer = -1;
  *
 */
 window.addEventListener('scroll', scrollPosActive);
-const hideNav = () => setTimeout(() => nav.style.top = nav.style.top = `${-nav.offsetHeight}px`,2000);
+
 
 function checkAndActivateSect(){
-  const sectionBtn = document.getElementsByClassName('menu__link');
   for (let i = 0; i < content.length; i++){
     const sectionYPos = content[i].parentElement.getBoundingClientRect().top;
     const sectionHeight = content[i].parentElement.getBoundingClientRect().height;
@@ -75,6 +77,19 @@ function hideNavScroll(){
   }
 }
 
+function toggleSect(){
+  if(this.style.minHeight !== "0px") {
+    this.style.minHeight = "0px";
+    sectIsCollapsed = true;
+    checkAndActivateSect()
+  }
+  else {
+    this.style.minHeight = "80vh";
+    sectIsCollapsed = false;
+    checkAndActivateSect()
+  }
+}
+
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -99,6 +114,15 @@ function buildNav(){
   navBar.addEventListener('click', scrollToPos);
   navBar.appendChild(navItems);
   document.getElementById('topBtn').addEventListener('click', scrollToPos);
+}
+
+//Make section collapsable
+function sectionColl(){
+  for(section of content){
+    const height = section.firstElementChild.offsetHeight;
+    section.style.height = `${height}px`;
+    section.addEventListener('click', toggleSect);
+  }
 }
 
 // Add class 'active' to section when near top of viewport
@@ -128,3 +152,5 @@ buildNav();
 //scrollToPos()
 // Set sections as active
 //scrollPosActive()
+//Section collapsable
+sectionColl();
