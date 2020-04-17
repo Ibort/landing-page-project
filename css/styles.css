@@ -109,10 +109,6 @@ section {
 }
 
 .scroll__top-active {
-  bottom: -50px;
-}
-
-.scroll__top:hover{
   bottom: 0px;
 }
 
@@ -156,7 +152,7 @@ section {
     overflow: hidden;
     padding: 1em;
     text-align: left;
-    transition: all 1s ease-out;
+    transition: all 1s;
     min-height: 80vh;
     max-height: 160vh;
 }

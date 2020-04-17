@@ -83,20 +83,21 @@ function hideNavScroll(){
 }
 
 function toggleSect(){
-  const getStyle = window.getComputedStyle(this)
+  const landCont = this.parentElement;
+  const getStyle = window.getComputedStyle(landCont)
   const padding = parseFloat(getStyle.paddingTop) + parseFloat(getStyle.paddingBottom);
-  const height = this.firstElementChild.offsetHeight + padding;
-  if(this.style.minHeight !== "0px") {
-    this.style.minHeight = "0px";
-    this.style.maxHeight = `${height}px`;
-    this.classList.add('collapsed')
-    checkAndActivateSect()
+  const height = this.offsetHeight + padding;
+  if(landCont.style.minHeight !== "0px") {
+    landCont.style.maxHeight = `${height}px`;
+    landCont.style.minHeight = '0';
+    landCont.classList.add('collapsed');
+    setTimeout(checkAndActivateSect, 0);
   }
   else {
-    this.style.minHeight = null;
-    this.style.maxHeight = null;
-    this.classList.remove('collapsed')
-    checkAndActivateSect()
+    landCont.style.minHeight = null;
+    landCont.style.maxHeight = null;
+    landCont.classList.remove('collapsed');
+    setTimeout(checkAndActivateSect, 1000);
   }
 }
 
@@ -129,7 +130,7 @@ function buildNav(){
 //Make section collapsable
 function sectionColl(){
   for(section of content){
-    section.addEventListener('click', toggleSect);
+    section.firstElementChild.addEventListener('click', toggleSect);
   }
 }
 
