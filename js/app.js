@@ -21,7 +21,6 @@ const content = document.getElementsByClassName('landing__container');
 const nav = document.getElementsByClassName('page__header')[0];
 const sectionBtn = document.getElementsByClassName('menu__link');
 const hideNav = () => setTimeout(() => nav.style.top = nav.style.top = `${-nav.offsetHeight}px`,2000);
-let sectIsCollapsed = false;
 let scrollTimer = -1;
 /**
  * End Global Variables
@@ -37,17 +36,23 @@ function checkAndActivateSect(){
     const sectionHeight = content[i].parentElement.getBoundingClientRect().height;
     const myClass = content[i].parentElement.classList;
     const pos = sectionHeight/2;
-    if(sectionYPos < pos && sectionYPos >= -pos){
-      if(myClass.contains('your-active-class') === false){
-        myClass.add('your-active-class');
-        sectionBtn[i].classList.add('menu__link__active');
+    if(content[i].classList.contains('collapsed') === false){
+      if(sectionYPos < pos && sectionYPos >= -pos){
+        if(myClass.contains('your-active-class') === false){
+          myClass.add('your-active-class');
+          sectionBtn[i].classList.add('menu__link__active');
+        }
+      }
+      else{
+        if(myClass.contains('your-active-class')){
+          myClass.remove('your-active-class');
+          sectionBtn[i].classList.remove('menu__link__active');
+        }
       }
     }
-    else{
-      if(myClass.contains('your-active-class')){
-        myClass.remove('your-active-class');
-        sectionBtn[i].classList.remove('menu__link__active');
-      }
+    else {
+      myClass.remove('your-active-class');
+      sectionBtn[i].classList.remove('menu__link__active');
     }
   }
 }
@@ -78,14 +83,19 @@ function hideNavScroll(){
 }
 
 function toggleSect(){
+  const getStyle = window.getComputedStyle(this)
+  const padding = parseFloat(getStyle.paddingTop) + parseFloat(getStyle.paddingBottom);
+  const height = this.firstElementChild.offsetHeight + padding;
   if(this.style.minHeight !== "0px") {
     this.style.minHeight = "0px";
-    sectIsCollapsed = true;
+    this.style.maxHeight = `${height}px`;
+    this.classList.add('collapsed')
     checkAndActivateSect()
   }
   else {
-    this.style.minHeight = "80vh";
-    sectIsCollapsed = false;
+    this.style.minHeight = null;
+    this.style.maxHeight = null;
+    this.classList.remove('collapsed')
     checkAndActivateSect()
   }
 }
@@ -119,8 +129,6 @@ function buildNav(){
 //Make section collapsable
 function sectionColl(){
   for(section of content){
-    const height = section.firstElementChild.offsetHeight;
-    section.style.height = `${height}px`;
     section.addEventListener('click', toggleSect);
   }
 }
