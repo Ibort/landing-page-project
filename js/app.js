@@ -18,9 +18,6 @@
  *
 */
 const content = document.getElementsByClassName('landing__container');
-const nav = document.getElementsByClassName('page__header')[0];
-const sectionBtn = document.getElementsByClassName('menu__link');
-const hideNav = () => setTimeout(() => nav.style.top = nav.style.top = `${-nav.offsetHeight}px`,2000);
 let scrollTimer = -1;
 /**
  * End Global Variables
@@ -29,30 +26,35 @@ let scrollTimer = -1;
 */
 window.addEventListener('scroll', scrollPosActive);
 
-
 function checkAndActivateSect(){
+  const sectionBtn = document.getElementsByClassName('menu__link');
   for (let i = 0; i < content.length; i++){
     const sectionYPos = content[i].parentElement.getBoundingClientRect().top;
     const sectionHeight = content[i].parentElement.getBoundingClientRect().height;
     const myClass = content[i].parentElement.classList;
     const pos = sectionHeight/2;
+    const toggleClass = (add) => {
+      if(add){
+        myClass.add('your-active-class');
+        sectionBtn[i].classList.add('menu__link__active');
+      }
+      else{
+        myClass.remove('your-active-class');
+        sectionBtn[i].classList.remove('menu__link__active');
+      }
+    }
     if(content[i].classList.contains('collapsed') === false){
       if(sectionYPos < pos && sectionYPos >= -pos){
         if(myClass.contains('your-active-class') === false){
-          myClass.add('your-active-class');
-          sectionBtn[i].classList.add('menu__link__active');
+          toggleClass(true);
         }
       }
       else{
-        if(myClass.contains('your-active-class')){
-          myClass.remove('your-active-class');
-          sectionBtn[i].classList.remove('menu__link__active');
-        }
+          toggleClass(false);
       }
     }
     else {
-      myClass.remove('your-active-class');
-      sectionBtn[i].classList.remove('menu__link__active');
+      toggleClass(false);
     }
   }
 }
@@ -68,6 +70,8 @@ function showTopBtn(){
 }
 
 function hideNavScroll(){
+  const nav = document.getElementsByClassName('page__header')[0];
+  const hideNav = () => setTimeout(() => nav.style.top = `${-nav.offsetHeight}px`,2000);
   if(nav.style.top !== "0px"){
     nav.style.top = "0px";
   }
@@ -87,17 +91,17 @@ function toggleSect(){
   const getStyle = window.getComputedStyle(landCont)
   const padding = parseFloat(getStyle.paddingTop) + parseFloat(getStyle.paddingBottom);
   const height = this.offsetHeight + padding;
+  const toggle = (maxHe, minHe, timeOut) => {
+    landCont.style.maxHeight = maxHe;
+    landCont.style.minHeight = minHe;
+    landCont.classList.toggle('collapsed');
+    setTimeout(checkAndActivateSect, timeOut);
+  }
   if(landCont.style.minHeight !== "0px") {
-    landCont.style.maxHeight = `${height}px`;
-    landCont.style.minHeight = '0';
-    landCont.classList.add('collapsed');
-    setTimeout(checkAndActivateSect, 0);
+    toggle(`${height}px`, '0', 0);
   }
   else {
-    landCont.style.minHeight = null;
-    landCont.style.maxHeight = null;
-    landCont.classList.remove('collapsed');
-    setTimeout(checkAndActivateSect, 1000);
+    toggle(null, null, 1000);
   }
 }
 
@@ -125,6 +129,7 @@ function buildNav(){
   navBar.addEventListener('click', scrollToPos);
   navBar.appendChild(navItems);
   document.getElementById('topBtn').addEventListener('click', scrollToPos);
+  sectionColl();
 }
 
 //Make section collapsable
@@ -145,7 +150,10 @@ function scrollPosActive(){
 function scrollToPos(){
   const clickedBtn = event.target.dataset.nav;
   const scrollTarget = document.getElementById(clickedBtn);
-  scrollTarget.scrollIntoView({behavior: "smooth"});
+  setTimeout(() => scrollTarget.scrollIntoView({behavior: "smooth"}), 200);
+  if(scrollTarget.firstElementChild.classList.contains('collapsed')){
+    scrollTarget.firstElementChild.firstElementChild.click();
+  }
 }
 
 /**
@@ -162,4 +170,3 @@ buildNav();
 // Set sections as active
 //scrollPosActive()
 //Section collapsable
-sectionColl();
