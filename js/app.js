@@ -126,9 +126,12 @@ function buildNav(){
     const navText = section.parentElement.dataset.nav;
     const navId = section.parentElement.id;
     newNavItem.innerHTML = `<button class='menu__link' data-nav='${navId}'>${navText}</button>`;
+    newNavItem.addEventListener('mouseenter', () => event.target.firstElementChild.classList.add('menu__link__hover'));
+    newNavItem.addEventListener('mouseleave', () => event.target.firstElementChild.classList.remove('menu__link__hover'));
     navItems.appendChild(newNavItem);
   }
   navBar.addEventListener('click', scrollToPos);
+
   navBar.appendChild(navItems);
   document.getElementById('topBtn').addEventListener('click', scrollToPos);
   sectionColl();
@@ -152,6 +155,8 @@ function scrollPosActive(){
 function scrollToPos(){
   const clickedBtn = event.target.dataset.nav;
   const scrollTarget = document.getElementById(clickedBtn);
+  // remove hower at touchscreen
+  event.target.classList.remove('menu__link__hover')
   setTimeout(() => scrollTarget.scrollIntoView({behavior: "smooth"}), 200);
   // open section tab if it is colapsed
   if(scrollTarget.firstElementChild.classList.contains('collapsed')){
