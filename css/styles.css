@@ -108,7 +108,7 @@ section {
   transition-duration: 1s;
 }
 
-.scroll__top-active {
+.scroll__top__active {
   bottom: 0px;
 }
 

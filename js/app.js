@@ -24,8 +24,10 @@ let scrollTimer = -1;
  * Start Helper Functions
  *
 */
+// adding scroll eventlisterent to window
 window.addEventListener('scroll', scrollPosActive);
 
+// check every main scetion element scroll position and active style in viewport
 function checkAndActivateSect(){
   const sectionBtn = document.getElementsByClassName('menu__link');
   for (let i = 0; i < content.length; i++){
@@ -59,19 +61,20 @@ function checkAndActivateSect(){
   }
 }
 
+// scroll top button hide and show function
 function showTopBtn(){
   const topBtn = document.getElementById('topBtn');
   if(content[0].parentElement.getBoundingClientRect().top < 0){
-    topBtn.classList.add('scroll__top-active');
+    topBtn.classList.add('scroll__top__active');
   }
   else {
-    topBtn.classList.remove('scroll__top-active');
+    topBtn.classList.remove('scroll__top__active');
   }
 }
 
+// navigation bar hide and show after scroll function
 function hideNavScroll(){
   const nav = document.getElementsByClassName('page__header')[0];
-  const hideNav = () => setTimeout(() => nav.style.top = `${-nav.offsetHeight}px`,2000);
   if(nav.style.top !== "0px"){
     nav.style.top = "0px";
   }
@@ -79,13 +82,14 @@ function hideNavScroll(){
     if(scrollTimer !== -1) {
       window.clearTimeout(scrollTimer);
     }
-    scrollTimer = hideNav();
+    scrollTimer = setTimeout(() => nav.style.top = `${-nav.offsetHeight}px`,2000);
   }
   else{
     window.clearTimeout(scrollTimer);
   }
 }
 
+// main section collapse in and out on click function
 function toggleSect(){
   const landCont = this.parentElement;
   const getStyle = window.getComputedStyle(landCont)
@@ -115,14 +119,12 @@ function toggleSect(){
 function buildNav(){
   const navBar = document.getElementById('navbar__list');
   const navItems = document.createDocumentFragment();
-
   navBar.innerHTML = "";
 
   for (const section of content){
     const newNavItem = document.createElement('li')
     const navText = section.parentElement.dataset.nav;
     const navId = section.parentElement.id;
-
     newNavItem.innerHTML = `<button class='menu__link' data-nav='${navId}'>${navText}</button>`;
     navItems.appendChild(newNavItem);
   }
@@ -151,6 +153,7 @@ function scrollToPos(){
   const clickedBtn = event.target.dataset.nav;
   const scrollTarget = document.getElementById(clickedBtn);
   setTimeout(() => scrollTarget.scrollIntoView({behavior: "smooth"}), 200);
+  // open section tab if it is colapsed
   if(scrollTarget.firstElementChild.classList.contains('collapsed')){
     scrollTarget.firstElementChild.firstElementChild.click();
   }
@@ -170,3 +173,4 @@ buildNav();
 // Set sections as active
 //scrollPosActive()
 //Section collapsable
+//toggleSect()
