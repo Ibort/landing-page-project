@@ -2,8 +2,16 @@
 
 ## Table of Contents
 
+<<<<<<< HEAD
 * [Instructions](#instructions),
 * [Landig Page Website info](#landig page website info)
+||||||| merged common ancestors
+* [Instructions](#instructions)
+* [Landig Page Website info](#landig page website info)
+=======
+* [Instructions](#instructions)
+* [Landig Page Website info](#landig-page-website-info)
+>>>>>>> 4eff451cb59201cdb54ee800f555d250e7d44573
 
 ## Instructions
 
