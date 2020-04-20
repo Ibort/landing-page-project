@@ -3,7 +3,7 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Landig-Page-Website-info](#landig page website info)
+* [Landig Page Website info](#landig)
 
 ## Instructions
 
