@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Instructions](#instructions),
 * [Landig Page Website info](#landig page website info)
 
 ## Instructions
