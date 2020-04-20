@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Instructions](#instructions),
 * [Landig Page Website info](#landig page website info)
 
 ## Instructions
@@ -17,12 +17,12 @@ For specific, detailed instructions, look at the project instructions in the Uda
 
 ### Navigation
 
-- Dynamic navigation bar depend of the main section content.
-- Active styling on the nav button when the content is in viewport.
-- Hover effect on mouse cursor, remove on touchscreens.
+  * Dynamic navigation bar depend of the main section content.
+  * Active styling on the nav button when the content is in viewport.
+  * Hover effect on mouse cursor, remove on touchscreens.
 
 ### Main Content
 
-- Dynamic expandable content sections
-- The saction are collapsable at clicking on the section heading, it will collapse to the heghit of the heading.
-- Scroll to top button at the bottom right corner, dissapearing when site is at the top scroll position.
+  * Dynamic expandable content sections
+  * The saction are collapsable at clicking on the section heading, it will collapse to the heghit of the heading.
+  * Scroll to top button at the bottom right corner, dissapearing when site is at the top scroll position.
