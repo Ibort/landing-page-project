@@ -44,7 +44,8 @@ function checkAndActivateSect(){
         myClass.remove('your-active-class');
         sectionBtn[i].classList.remove('menu__link__active');
       }
-    }
+    };
+    
     if(content[i].classList.contains('collapsed') === false){
       if(sectionYPos < pos && sectionYPos >= -pos){
         if(myClass.contains('your-active-class') === false){
@@ -155,7 +156,7 @@ function scrollPosActive(){
 function scrollToPos(){
   const clickedBtn = event.target.dataset.nav;
   const scrollTarget = document.getElementById(clickedBtn);
-  // remove hower at touchscreen
+  // remove hover at touchscreen
   event.target.classList.remove('menu__link__hover')
   setTimeout(() => scrollTarget.scrollIntoView({behavior: "smooth"}), 200);
   // open section tab if it is colapsed
